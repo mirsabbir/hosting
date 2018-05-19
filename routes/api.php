@@ -16,3 +16,14 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::middleware('auth:api')->post('/slug', function (Request $request) {
+    $can = \App\Post::where('slug',$request->slug)->exists();
+    if($can){
+        return ['can' => 0];
+    } else return ['can' => 1];
+
+});
+
+Route::get('/category/{category}','CategoryPageController@api');
