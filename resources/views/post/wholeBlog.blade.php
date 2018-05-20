@@ -26,7 +26,7 @@
                     <div class="media">
                     <img class="align-self-start mr-3" height=150 width=150 src="{{asset('images/uploads/'.$post->image)}}" alt="Generic placeholder image">
                     <div class="media-body">
-                        <p>{!!substr($post->body,0,150)!!}... <a style="color:#ef237f;text-decoration:none;" href="/{{$post->category->name}}/{{$post->slug}}"> <strong>Read more >></strong> </a></p>
+                        <p>{!!substr($post->body,0,150)!!}... <a style="color:#ef237f;text-decoration:none;" href="/{{$post->category->url}}/{{$post->slug}}"> <strong>Read more >></strong> </a></p>
                     </div>
                     </div>
                 </div>
