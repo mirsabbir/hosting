@@ -18,6 +18,8 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->string('title');
             $table->text('body');
+            $table->string('image');
+            $table->integer('category_id');
             $table->timestamps();
         });
     }

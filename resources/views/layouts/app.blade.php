@@ -36,7 +36,7 @@
 
 </head>
 <body>
-    <div id="app">
+    <div>
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -92,9 +92,9 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <div class="py-4">
             @yield('content')
-        </main>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -159,4 +159,5 @@
 
 
 </body>
+
 </html>

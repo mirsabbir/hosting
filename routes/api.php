@@ -26,4 +26,6 @@ Route::middleware('auth:api')->post('/slug', function (Request $request) {
 
 });
 
-Route::get('/category/{category}','CategoryPageController@api');
+Route::get('/blog','PostViewController@wholeBlogApi');
+
+

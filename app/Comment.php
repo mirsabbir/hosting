@@ -9,6 +9,6 @@ class Comment extends Model
     
 
     public function post(){
-        $this->belongsTo(\App\Post::class);
+        return $this->belongsTo(\App\Post::class);
     }
 }

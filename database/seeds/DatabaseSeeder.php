@@ -11,6 +11,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        factory(App\Post::class, 50)->create();
+
+
+        // DB::table('posts')->insert([
+        //     'title' => str_random(15),
+        //     'body' => str_random(200),
+        //     'slug' => str_random(15),
+        //     'image' => 'a.jpg'
+        // ]);
+
+        //factory(App\Category::class, 7)->create();
     }
 }
