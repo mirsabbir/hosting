@@ -79,12 +79,12 @@
                         @endguest
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown link
+                            Blog
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            @foreach($categories as $category)
+                            <a class="dropdown-item" href="/category/{{$category->url}}">{{$category->name}}</a>
+                            @endforeach
                             </div>
                         </li>
                     </ul>

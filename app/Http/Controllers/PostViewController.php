@@ -9,7 +9,7 @@ use App\Post;
 class PostViewController extends Controller
 {
     public function singlePost(Request $request,$category,$slug){
-        $valid = Category::where('name',$category)->exists();
+        $valid = Category::where('url',$category)->exists();
         if(!$valid){
             return view('err');
         }
@@ -24,11 +24,11 @@ class PostViewController extends Controller
         return view('post.wholeBlog')->with(['posts'=>$posts]);
     }
     public function singleCategory(Request $request,$category){
-        $valid = Category::where('name',$category)->exists();
+        $valid = Category::where('url',$category)->exists();
         if(!$valid){
             return view('err');
         }
-        return view('post.singleCategory');
+        return view('post.singleCategory')->with(['cat' => Category::where('url',$category)->get()[0]]);
     }
 
     // api

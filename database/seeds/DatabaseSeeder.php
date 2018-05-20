@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Post::class, 50)->create();
+       // factory(App\Post::class, 50)->create();
 
 
         // DB::table('posts')->insert([
@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
         //     'image' => 'a.jpg'
         // ]);
 
-        //factory(App\Category::class, 7)->create();
+        factory(App\Category::class, 7)->create();
     }
 }
