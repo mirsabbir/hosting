@@ -17,7 +17,27 @@
             <div style="background-color:white;padding:18px;">
                 {{$post->title}}
                 <br>
-                {{$post->body}}
+                {!! $post->body !!}
+            </div>
+            <h3>Comments</h3> <i class="far fa-comments fa-2x"></i>
+            <div style="background-color:white;padding:18px;">
+                @foreach($post->comments as $comment)
+                {{$comment->name}}
+                <br>
+                {{$comment->body}}
+                    @foreach($comment->replies as $reply)
+                    <div style="background-color:white;padding:18px;margin-left:15px;">
+                        {{$reply->name}}
+                        <br>
+                        {{$reply->body}}
+                    </div>
+                    @endforeach
+                @endforeach
+
+                <h3>Tags</h3>
+                @foreach($post->tags as $tag)
+                    <a href="#">{{$tag->name}}</a>
+                @endforeach
             </div>
 
             

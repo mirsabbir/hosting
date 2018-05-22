@@ -10,7 +10,7 @@ class Post extends Model
     use Searchable;
     
     public function tags(){
-        return $this->hasMany(\App\Tag::class);
+        return $this->belongsToMany(\App\Tag::class);
     }
     public function comments(){
         return $this->hasMany(\App\Comment::class);

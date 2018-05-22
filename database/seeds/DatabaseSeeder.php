@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         //     'image' => 'a.jpg'
         // ]);
 
-        factory(App\Category::class, 7)->create();
+        //factory(App\Category::class, 7)->create();
+        // factory(App\Comment::class, 60)->create();
+        factory(App\Reply::class, 60)->create();
     }
 }

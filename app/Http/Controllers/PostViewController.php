@@ -11,16 +11,17 @@ class PostViewController extends Controller
     public function singlePost(Request $request,$category,$slug){
         $valid = Category::where('url',$category)->exists();
         if(!$valid){
-            return view('err');
+            abort(404);
         }
         $valid = Post::where('slug',$slug)->exists();
         if(!$valid){
-            
-            return view('err');
+            abort(404);
         }
+        // dd(Post::where('slug',$slug)->with(['comments.replies'])->get()[0]);
         return view('post.singlePost')->with([
             'cat' => Category::where('url',$category)->get()[0],
-            'post' => Post::where('slug',$slug)->get()[0]
+            'post' => Post::where('slug',$slug)->with(['comments.replies','tags'])->get()->first(),
+            
         ]);
     }
     public function wholeBlog(Request $request){
@@ -29,10 +30,10 @@ class PostViewController extends Controller
     }
     public function singleCategory(Request $request,$category){
         $valid = Category::where('url',$category)->exists();
-        $posts = Post::where('category_id', Category::where('url',$category)->get()[0]['id'])->paginate(4);
         if(!$valid){
-            return view('err');
+            abort(404);
         }
+        $posts = Post::where('category_id', Category::where('url',$category)->get()[0]['id'])->paginate(4);
         return view('post.singleCategory')->with(['cat' => Category::where('url',$category)->get()[0],
             'posts' => $posts,
         ]);

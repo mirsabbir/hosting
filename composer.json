@@ -12,6 +12,7 @@
         "laravel/framework": "5.6.*",
         "laravel/scout": "^4.0",
         "laravel/tinker": "^1.0",
+        "mews/purifier": "^2.1",
         "unisharp/laravel-filemanager": "~1.8"
     },
     "require-dev": {
