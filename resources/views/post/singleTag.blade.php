@@ -8,8 +8,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/"><strong>Hosting</strong> </a></li>
-                <li class="breadcrumb-item"><a href="/blog"><strong>Blog</strong> </a></li>
-                <li class="breadcrumb-item active" aria-current="page"><strong>{{$cat->name}}</strong></li>
+                <li class="breadcrumb-item"><a href="/tags"><strong>Tags</strong> </a></li>
+                <li class="breadcrumb-item active" aria-current="page"><strong>{{$tag->name}}</strong></li>
             </ol>
             </nav>
             <div style="background-color:white;padding:18px;">

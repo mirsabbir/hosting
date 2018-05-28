@@ -41,9 +41,14 @@ class PostController extends Controller
         $post->body = \Purifier::clean($request->body);
         $post->slug = $request->slug;
         $post->image = $filename;
-        $cat_id = \App\Category::where('name',$request->category)->get()[0]['id'];
-        $post->category_id = $cat_id;
+        $post->count = 0;
+        $cat = \App\Category::where('name',$request->category)->get()->first();
+        
+        $post->category()->associate($cat);
+    
+
         $post->save();
+        $post->tags()->attach($request->tags);
         
 
 

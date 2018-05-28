@@ -19,6 +19,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'body' => $faker->paragraph,
         'slug' => str_random(15),
         'image' => 'a.jpg',
+        'count' =>0,
         'category_id' => rand(1,7)
     ];
 });

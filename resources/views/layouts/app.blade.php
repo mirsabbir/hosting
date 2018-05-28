@@ -15,7 +15,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -39,61 +39,86 @@
 
 </head>
 <body>
-    <div>
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
+    <div id="search">
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary " >
+            <div  class="container" >
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <strong>{{ config('app.name', 'Laravel') }}</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
+
+                
+                        
+                     <div  class="mr-auto"style="margin-left:10px;">
+                            <form class="form-inline ml-auto " action="/search" method="get">
+                            @csrf
+                            <div class="form-group">
+                                <input  @blur="r()" v-model="q" style="width:300px" autocomplete="off" type="text" name="search" class="form-control" placeholder="search posts...">
+                                <button style="margin-left:10px" type="submit" name="" id=""  value="search"class="btn btn-secondery ">Search</buton>
+                            </div>
+                            </form>
+                        </div>
+                
                
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    
+                    <!-- <ul class="navbar-nav"> -->
 
-                    </ul>
+
+                       
+
+                    <!-- </ul> -->
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Blog
+                    <li class="nav-item"><a class="nav-link active" href="/blog"><strong>Blog</strong> </a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/coupons"><strong>Coupons</strong> </a></li>
+                    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <strong>Categories</strong>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             @foreach($categories as $category)
                             <a class="dropdown-item" href="/category/{{$category->url}}">{{$category->name}}</a>
                             @endforeach
                             </div>
-                        </li>
+                    </li>
+                    
+                        <!-- Authentication Links -->
+                            
+    
+                        
                     </ul>
                 </div>
             </div>
         </nav>
+        
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div style="position:absolute;margin-left:8%;z-index:50;" class="col">
+
+                <div class="col-md-6">
+                
+                <div class="list-group"id="res">
+                    
+                    
+                    <div  v-for="(result,key) in results" >
+                    <a  :href="links[key]" style="color:black;margin-left:12%;font-weight:bold" class="list-group-item list-group-item-action list-group-item-warning" >
+                        @{{result.title}}
+                    </a>
+                    </div>
+                </div>
+               
+                </div>
+            
+            </div>
+            <div class="col-md-3"></div>
+        </div>
 
         <div class="py-4">
             @yield('content')
@@ -163,5 +188,62 @@
 
 
 </body>
+
+<script>
+
+
+
+const search = new Vue({
+el:'#search',
+data:{
+    results:[],
+    q:'',
+    links:[],
+    p:''
+},
+methods:{
+    search(){
+        axios.get('/api/search?q='+this.q)
+        .then(function (response) {
+            search.results = response.data[0];
+            for(var i=0;i<search.results.length;i++){
+                var res = search.results[i];
+                axios.get('/api/fullurl/get?'+'c='+res.category_id+'&s='+res.slug)
+                .then(function (response) {
+                    search.links.push(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    },
+    r:
+        _.debounce(function(){
+            document.getElementById('res').style.display = 'none';
+        },500)
+        
+    
+},
+watch:{
+    q: _.debounce(function(){
+        if(search.q.length>2){
+            search.search()
+            document.getElementById('res').style.display = 'block';
+        }
+        else search.results = [];
+    },500)
+},
+mounted(){
+    
+}
+
+});
+
+</script>
+
 
 </html>

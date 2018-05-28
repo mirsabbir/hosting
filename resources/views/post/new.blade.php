@@ -110,9 +110,9 @@
 
     <h3 style="margin-top:15px;">Tags</h3>
     <div class= "form-control">
-    <select class="js-example-basic-multiple form-control" name="states[]" multiple="multiple" style="margin-top:15px;">
+    <select class="js-example-basic-multiple form-control" name="tags[]" multiple="multiple" style="margin-top:15px;">
       @foreach($tags as $tag)
-      <option value="{{$tag->name}}">{{$tag->name}}</option>
+      <option  value="{{$tag->id}}">{{$tag->name}}</option>
       @endforeach
     </select>
     </div>

@@ -7,7 +7,7 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+window.Vue = require('vue/dist/vue.min.js');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -26,6 +26,18 @@ Route::middleware('auth:api')->post('/slug', function (Request $request) {
 
 });
 
+Route::get('search',function(Request $request){
+    return array(App\Post::search($request->q)->take(7)->get());
+});
+Route::get('fullurl/get',function(Request $request){
+
+    $category = \App\Category::findOrFail($request->c);
+    
+    return response()->json('/'.$category->url.'/'.$request->s);
+    
+
+});
+
 Route::get('/category','PostViewController@allCategoryApi');
 
 Route::get('/blog','PostViewController@wholeBlogApi');

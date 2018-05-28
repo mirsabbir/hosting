@@ -10495,6 +10495,15 @@ section .section-title {
   }
 }
 
+a {
+  color: #ef237f;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ef237f;
+}
+
 .navbar-laravel {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

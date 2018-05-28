@@ -7,6 +7,6 @@ $factory->define(\App\Comment::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->email,
         'body' => $faker->paragraph,
-        'post_id' => rand(101,150),
+        'post_id' => rand(1,50),
     ];
 });
